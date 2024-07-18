@@ -1,6 +1,3 @@
-## Архитектура микросервисов
-[![msg.png](https://i.postimg.cc/wvCHx9GS/msg.png)](https://postimg.cc/N9kZpvY4)
-
 ## Документация по API
 ### Отправить сообщение для записи его в БД
 #### Запрос
