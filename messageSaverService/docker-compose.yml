@@ -1,0 +1,6 @@
+services:
+  message-handler:
+    build: .
+    command: /messageSaver
+    ports:
+      - 5001:5000

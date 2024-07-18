@@ -12,10 +12,13 @@ import (
 func SendMessage(data interface{}) {
 	brokers := []string{os.Getenv("KAFKA_1")}
 
+	l := log.New(os.Stdout, "kafka writer: ", 0)
+
 	writer := kafka.NewWriter(kafka.WriterConfig{
 		Brokers:  brokers,
 		Topic:    os.Getenv("PRODUCER_TOPIC_NAME"),
 		Balancer: &kafka.LeastBytes{},
+		Logger:   l,
 	})
 
 	defer writer.Close()
