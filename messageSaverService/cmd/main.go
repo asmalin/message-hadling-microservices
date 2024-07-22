@@ -26,7 +26,7 @@ func init() {
 }
 
 func main() {
-	if err := godotenv.Load("../.env"); err != nil {
+	if err := godotenv.Load("/app/.env"); err != nil {
 		log.Fatalf("Error loading env variables.")
 	}
 
