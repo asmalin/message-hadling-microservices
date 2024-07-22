@@ -5,7 +5,7 @@
 #### Запрос
 
 ```http
-POST http://5.35.12.248:5001/messages
+POST http://45.89.188.162:5001/messages
 ```
 
 **Пример тела запроса (JSON):**
@@ -20,7 +20,10 @@ POST http://5.35.12.248:5001/messages
 
 ```json
 {
-  "id": 3
+    "id": 2,
+    "text": "Hello!",
+    "processed": false,
+    "created_at": "2024-07-22T16:20:50.769995Z"
 }
 ```
 
@@ -29,7 +32,7 @@ POST http://5.35.12.248:5001/messages
 #### Запрос
 
 ```http
-GET http://5.35.12.248:5001/messages/statistic
+GET http://45.89.188.162:5001/messages/statistic
 ```
 
 #### Ответ
