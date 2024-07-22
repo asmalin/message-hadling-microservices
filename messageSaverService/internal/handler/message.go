@@ -35,13 +35,11 @@ func (h *Handler) saveMessage(c *gin.Context) {
 		return
 	}
 
-	msgId, err := h.services.Message.SaveMessage(message)
+	msg, err := h.services.Message.SaveMessage(message)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, map[string]interface{}{
-		"id": msgId,
-	})
+	c.JSON(http.StatusOK, msg)
 }

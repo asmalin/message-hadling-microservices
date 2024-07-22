@@ -9,7 +9,7 @@ import (
 type Message interface {
 	GetTotalMessages() (int, error)
 	GetProcessedMessages() (int, error)
-	SaveMessage(message model.MessageInput) (messageId int, err error)
+	SaveMessage(message model.MessageInput) (msg model.Message, err error)
 }
 
 type Service struct {

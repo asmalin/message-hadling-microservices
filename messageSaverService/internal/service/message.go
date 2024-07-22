@@ -33,9 +33,7 @@ func (s *MessageService) GetProcessedMessages() (int, error) {
 	return processedMsg, nil
 }
 
-func (s *MessageService) SaveMessage(message model.MessageInput) (messageId int, err error) {
-
-	var msg model.Message
+func (s *MessageService) SaveMessage(message model.MessageInput) (msg model.Message, err error) {
 
 	msg.Text = message.Text
 	msg.Processed = false
@@ -43,10 +41,10 @@ func (s *MessageService) SaveMessage(message model.MessageInput) (messageId int,
 	msg, err = s.repo.SaveMessage(msg)
 
 	if err != nil {
-		return 0, err
+		return model.Message{}, err
 	}
 
 	kafka.SendMessage(msg)
 
-	return msg.Id, nil
+	return msg, nil
 }
