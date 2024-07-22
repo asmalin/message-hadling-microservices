@@ -1,4 +1,27 @@
 services:
+
+  message-handler:
+    build: ./messageHandlerService
+    command: /messageHandler
+    ports:
+      - 8080:8080
+
+  message-saver:
+    build: ./messageSaverService
+    command: /messageSaver
+    ports:
+      - 5001:5002
+
+  postgres:
+    image: postgres:14.8-alpine3.18
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
   zookeeper:
     image: wurstmeister/zookeeper:latest
     container_name: zookeeper
@@ -12,12 +35,14 @@ services:
       - "9094:9094"
     environment:
       KAFKA_BROKER_ID: "001"
-      KAFKA_CREATE_TOPICS: "message:3:1"
+      KAFKA_CREATE_TOPICS: "${TOPIC_NAME}:3:1"
       HOSTNAME_COMMAND: "docker info | grep ^Name: | cut -d' ' -f 2"
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT"
       KAFKA_ADVERTISED_LISTENERS: "INSIDE://:9092,OUTSIDE://${SERVER_IP}:9094"
       KAFKA_LISTENERS: "INSIDE://:9092,OUTSIDE://:9094"
       KAFKA_INTER_BROKER_LISTENER_NAME: "INSIDE"
+      KAFKA_LOG_RETENTION_MS: 86400000
+      KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 5000
     depends_on:
       - zookeeper

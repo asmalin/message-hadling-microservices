@@ -1,6 +1,0 @@
-services:
-  message-handler:
-    build: .
-    command: /messageHandler
-    ports:
-      - 5001:5000
