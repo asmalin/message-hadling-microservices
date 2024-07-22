@@ -35,6 +35,11 @@ func (h *Handler) saveMessage(c *gin.Context) {
 		return
 	}
 
+	if message.Text == "" {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "no input data"})
+		return
+	}
+
 	msg, err := h.services.Message.SaveMessage(message)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
