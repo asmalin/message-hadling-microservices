@@ -1,3 +1,5 @@
+## Архитектура
+![architecture.png](https://github.com/asmalin/message-hadling-microservices/blob/main/arch.png?raw=true)
 ## Документация по API
 ### Отправить сообщение для записи его в БД
 #### Запрос
