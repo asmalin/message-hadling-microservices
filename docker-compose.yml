@@ -2,15 +2,21 @@ services:
 
   message-handler:
     build: ./messageHandlerService
-    command: /messageHandler
+    command: ["./wait-for-postgres.sh", "postgres", "${POSTGRES_USER}", "${POSTGRES_DB}", "/messageHandler"]
     ports:
-      - 8080:8080
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - kafka
 
   message-saver:
     build: ./messageSaverService
-    command: /messageSaver
+    command: ["./wait-for-postgres.sh", "postgres", "${POSTGRES_USER}", "${POSTGRES_DB}","/messageSaver"]
     ports:
-      - 5001:5002
+      - "5001:5002"
+    depends_on:
+      - postgres
+      - kafka
 
   postgres:
     image: postgres:14.8-alpine3.18

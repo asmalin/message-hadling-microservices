@@ -1,10 +1,10 @@
-FROM golang:1.22.0 AS builder
+FROM golang AS builder
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y postgresql-client
+
 COPY ./ ./
+RUN chmod +x ./wait-for-postgres.sh
 
-RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -o /messageHandler ./cmd
-
-ENTRYPOINT ["/messageHandler"]
